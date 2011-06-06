@@ -1,0 +1,13 @@
+<?xml version="1.0"?>
+<QBWCXML>
+<AppName>HTTPPOSWebService1</AppName>
+<AppID>WCPOSWSAppID</AppID>
+<AppURL>http://localhost/QWCPOSWebService/QWCPOSWebService.asmx</AppURL>
+<AppDescription>A short description for QWCPOSWebService</AppDescription>
+<AppSupport>http://localhost/QWCPOSWebService/QWCPOSWebService.asmx?wsdl</AppSupport>
+<UserName>username</UserName>
+<OwnerID>{AD5F18AF-207D-48fe-B3FD-71D3EF613D59}</OwnerID>
+<FileID>{96E15C22-73CE-4e23-A99D-A6FCAB6A02E3}</FileID>
+<QBType>QBPOS</QBType>
+<Style>Document</Style>
+</QBWCXML>
