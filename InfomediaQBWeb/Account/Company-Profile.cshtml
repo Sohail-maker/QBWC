@@ -1,0 +1,62 @@
+﻿@using QuickbooksWebService.DomainModel;
+@{
+	WebSecurity.RequireAuthenticatedUser();
+	Layout = "../_SiteLayout.cshtml";
+	var rep = new Repository();
+	var user = rep.GetUser(WebSecurity.CurrentUserId);
+	var client = rep.GetClient(user.ClientID ?? 0);
+    Page.Title = client.ClientName + " :: Company Profile";
+	var message = "";
+}
+
+@section head {
+    
+}
+@if(IsPost)
+{
+	client.EmailRecipient = Request["EmailRecipient"];
+	client.InvoiceTemplateRef = Request["InvoiceTemplateRef"];
+	client.InvoiceClassRef = Request["InvoiceClassRef"];
+	client.ShippingReference = Request["ShippingReference"];
+	client.RequiresInventoryUpdate = Request["RequiresInventoryUpdate"] == "on";
+	client.SalesTaxReference = Request["SalesTaxReference"];
+	rep.Save();
+	message = "<h3>Saved</h3>";
+}
+@Html.Raw(message)
+<div>
+	<fieldset>
+		<legend>Company Profile</legend>
+		<form action="" method="post">
+			<table>
+				<tr>
+					<td><label>Notification Emails:</label></td>
+					<td><input type="text" name="EmailRecipient" value="@client.EmailRecipient"/></td>
+				</tr>
+				<tr>
+					<td><label>Invoice Template Reference</label></td>
+					<td><input type="text" name="InvoiceTemplateRef" value="@client.InvoiceTemplateRef"/></td>
+				</tr>
+				<tr>
+					<td><label>Invoice Class Reference</label></td>
+					<td><input type="text" name="InvoiceClassRef" value="@client.InvoiceClassRef" /></td>
+				</tr>
+				<tr>
+					<td><label>Shipping Reference</label></td>
+					<td><input type="text" name="ShippingReference" value="@client.ShippingReference" /></td>
+				</tr>
+				<tr>
+					<td><label>Sales Tax Reference</label></td>
+					<td><input type="text" name="SalesTaxReference" value="@client.SalesTaxReference" /></td>
+				</tr>
+				<tr>
+					<td><label>Update Inventory Next Session</label></td>
+					<td><input type="checkbox" name="RequiresInventoryUpdate" @Html.Raw(client.RequiresInventoryUpdate == true ? "checked=\"checked\"" : null)/></td>
+				</tr>
+			</table>
+			<p>
+				<input type="submit" value="Save Profile" />
+			</p>
+		</form>
+	</fieldset>
+</div>

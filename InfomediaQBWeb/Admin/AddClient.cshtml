@@ -1,0 +1,36 @@
+﻿@{
+    Page.Title = "Title goes here";
+    string ownerID = System.Configuration.ConfigurationManager.AppSettings["OwnerID"];
+	Layout = "../_SiteLayout";
+	string message = "";
+	if(IsPost)
+	{
+		int clientid = Convert.ToInt32(Request["clientid"]);
+		string name = Request["clientname"];
+		string type = Request["type"];
+		var db = Database.Open("Quickbooks");
+		db.Execute("Insert into Clients (ContentEditsClientID,ClientName,OwnerIDGuid,FileIDGuid,QbType) Values(@0,@1,@2,@3,@4)",
+					clientid,name,ownerID,Guid.NewGuid(),type);
+		message = "Success";
+	}
+}
+
+@section head {
+    
+}
+
+<div>
+    
+	<form action="" method="post">
+		<ul>
+			<li>ClientID<input type="text" name="clientid" /></li>
+			<li>ClientName<input type="text" name="clientname" /></li>
+			<li>Quickbooks Type: QBPos<input type="radio" name="type" value="QBPos" /> QBFS<input type="radio" name="type" value="QBFS" /></li>
+			<li><input type="submit" value="Save" /></li>
+			@if(!message.IsEmpty())
+			{
+				<li>@message</li>
+			}
+		</ul>
+	</form>
+</div>

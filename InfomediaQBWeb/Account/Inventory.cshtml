@@ -1,0 +1,66 @@
+﻿@using QuickbooksWebService.DomainModel;
+@{
+	WebSecurity.RequireAuthenticatedUser();
+	Page.Title = "Quickbooks/Ecommerce Inventory Links";
+	if(!IsAjax){
+	Layout = "../_SiteLayout.cshtml";
+	}
+	var rep = new Repository();
+	var clientID = rep.GetUser(WebSecurity.CurrentUserName).ClientID;
+	var inventory = rep.GetShopInventoryItems(clientID ?? 0);
+}
+
+@section head {
+   <script type="text/javascript">
+   	$(document).ready(function () {
+   		$('.item').mouseover(function () {
+   			var id = $(this).attr('id');
+   			var options = jQuery('option', this);
+   			if (options.length == 1) {
+   				if (options.val() == '') {
+   					$.post('inventoryAjax', { id: id }, function (data) {
+   						$('#' + id).html(data);
+   					});
+   				}
+   				else {
+   					$.post('inventoryAjax', { id: id, selected: options.val() }, function (data) {
+   						$('#' + id).html(data);
+   					});
+   				}
+   			}
+   		})
+		.change(function () {
+			var id = $(this).attr('id');
+			var qbId = $(this).find('option:selected').val();
+			$.post('inventoryAjax', { shopId: id, qbId: qbId });
+
+		});
+
+   		$('.all').click(function () {
+   			var selct = $(this).parent().find('select');
+   			var id = selct.attr('id');
+   			$.post('inventoryAjax', { all: 'true', id: id }, function (data) {
+   				selct.html(data);
+   			});
+   		});
+   	});
+	</script>
+}
+<div>
+	<table>
+	@foreach (var item in inventory)
+ {
+		var name = item.QuickbooksInventoryID == null ? "" : item.QuickbooksInventory.FullName;
+		<tr>
+			<td>@item.Name</td>
+			<td align="right"style="min-width:200px;">
+				<select class="item" id="@item.InventoryID" name="name">
+					<option value="@item.QuickbooksInventoryID">@name</option>
+				</select>
+			</td>
+			<td class="all" id="item.InventoryID">show all</td>
+		</tr>	
+ }
+	</table>
+</div>
+ 

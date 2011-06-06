@@ -1,0 +1,52 @@
+﻿@using QuickbooksWebService.DomainModel;
+@using SubSonic.Extensions;
+@{
+	var rep = new Repository();
+	var clientID = rep.GetUser(WebSecurity.CurrentUserName).ClientID;
+	var inventory = rep.GetShopInventoryItems(clientID ?? 0);
+	var selectedVal = Request["selected"];
+	var all = Request["all"] == "true";
+}
+@if (IsPost && IsAjax && !Request["id"].IsEmpty()){
+	var finalsplit = new List<string>();
+	var shopInventory = rep.GetShopInventoryItems(clientID ?? 0).Where(i => i.InventoryID == Convert.ToInt32(Request["id"])).SingleOrDefault().Name;
+	var possibilities = shopInventory.Split(' ','-','/');
+	
+	var qbItems = new List<QuickbooksInventory>();
+	foreach (var item in possibilities)
+	{
+		var qb = rep.GetQuickbooksInventoryItems(clientID ?? 0).Where(q => q.FullName.IndexOf(item) > -1);
+		var qbSingular = rep.GetQuickbooksInventoryItems(clientID ?? 0).Where(q => q.FullName.IndexOf(item.MakeSingular()) > -1);
+		qbItems.AddRange(qb);
+		qbItems.AddRange(qbSingular);
+	}
+	if(!qbItems.Any() || all)
+	{
+		qbItems.AddRange(rep.GetQuickbooksInventoryItems(clientID ?? 0));
+	}
+	var list = qbItems.Distinct(new InventoryComparison()).OrderBy(o => o.FullName);
+			<option value="">&nbsp;</option>
+	foreach (var linkItem in list)
+	{
+			string selected = selectedVal != linkItem.QuickbooksInventoryID.ToString() ? "" : " selected=\"selected\" ";
+			
+			<option value="@linkItem.QuickbooksInventoryID"@selected>@linkItem.FullName</option>
+	}
+}
+else if (IsPost && IsAjax && !Request["shopId"].IsEmpty())
+{
+	var shopID = Convert.ToInt32(Request["shopId"]);
+	var qbId = Request["qbId"].IsEmpty() ? 0 : Convert.ToInt32(Request["qbId"]);
+	var shopInventory = rep.GetShopInventoryItems(clientID ?? 0).Where(i => i.InventoryID == shopID).SingleOrDefault();
+	
+
+	if (qbId != 0)
+	{
+		shopInventory.QuickbooksInventoryID = qbId;
+	}
+	else
+	{
+		shopInventory.QuickbooksInventoryID = null;
+	}
+	rep.Save();
+}

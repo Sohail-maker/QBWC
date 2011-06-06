@@ -1,0 +1,80 @@
+﻿@{
+    WebSecurity.RequireAuthenticatedUser();
+	Page.Title = "Quickbooks/Web Inventory Links";
+    Layout = "../_SiteLayout.cshtml";
+	var db = Database.Open("ContentManager");
+	var rep = new QuickbooksWebService.DomainModel.Repository();
+	var qdb = Database.Open("Quickbooks");
+	var filter = "";
+	if (!Request["filter"].IsEmpty())
+	{
+		filter = String.Format("And title like '%{0}%'", Request["filter"]);
+	}
+	var clientID = rep.GetUser(WebSecurity.CurrentUserId).ClientID;
+	
+	var q = db.Query(String.Format("Select title,id from shops_inventory where clientId = @0 {0} and status = 1 order by title", filter), clientID);
+	var message = "";
+	
+	if(IsPost){
+		foreach(var item in q)
+		{
+			string webInventoy = qdb.QueryValue("Select WebInventoryName from inventoryLinks where clientID = @0 and WeBinventoryName = @1",clientID,item.title);
+			
+			if(webInventoy.IsEmpty()){
+				qdb.Execute("Insert into InventoryLInks (WebInventoryName,QBInventoryName,ClientID) values(@0,@1,@2)",item.title,Request[item.id.ToString()],clientID);
+			}
+			else{
+				qdb.Execute("Update inventoryLinks set QBInventoryName = @0 where clientID = @1 and WebInventoryName = @2", Request[item.id.ToString()], clientID, item.title);
+			}
+		}
+		qdb.Execute("Delete from InventoryLinks where QBInventoryName = ''");
+		message = "<h1 class=\"block\">Saved</h1>";
+	}
+	
+	var stmt = "Select(Select cast(cast(WebinventoryName as varchar(max)) + ',*,*' as varchar(max)) from inventoryLinks where clientid = @0  for XML Path('')) as WebInventoryNames";
+	string webinventorylinkItems = qdb.QueryValue(stmt,clientID);
+	var popList = webinventorylinkItems.Split(new[]{",*,*"},StringSplitOptions.RemoveEmptyEntries).ToList();
+}	
+
+
+<div>
+	<div class="block">
+		@Html.Raw(message)
+	</div>
+	<div class="block">
+		<form action="Inventory" method="get">
+			<input type="text" name="filter" value="@Request["filter"]" />
+			<input type="submit" value="Search" />
+		</form>
+	</div>
+	<form action="Inventory" method="post">
+			<input type="hidden" name="filter" value="@Request["filter"]" />
+		
+		<table>
+			<tr>
+				<th>Website Inventory Name</th>
+				<th>Quickbooks Inventory Name</th>
+			</tr>
+		@foreach (var item in q)
+  {
+	  var value = "";
+	  if (popList.IndexOf(item.title) > -1)
+	  {
+		  value = qdb.QueryValue("Select QBInventoryName from InventoryLinks where clientID = @0 and WebInventoryName = @1", clientID, item.title);
+	  }
+			<tr>
+				<td>
+					@item.title
+				</td>
+				<td>
+					<input type="text" name="@item.id" value="@value" />
+				</td>
+			</tr>
+  }
+		</table>
+		<p>
+
+			<input type="submit" value="Save" />
+		</p>
+	</form>
+</div>

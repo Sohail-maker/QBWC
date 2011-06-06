@@ -1,0 +1,10 @@
+﻿@{
+	Response.Clear();
+	string username = Request["u"];
+	var q = Database.Open("QuickBooks");
+	var clientID = q.QueryValue("Select clientID from webpages_Membership m inner join UserProfile u on u.UserID = m.userID where u.email = @0",username);
+	Response.Write(QuickbooksWebService.QuickbooksObjects.QwcFile.GenerateFile(username,Convert.ToInt32(clientID)).ToString());
+	Response.AddHeader("content-disposition", "attachment; filename=infomedia.qwc");
+	
+}
+

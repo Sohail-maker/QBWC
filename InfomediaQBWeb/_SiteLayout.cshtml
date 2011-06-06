@@ -1,0 +1,75 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+ 
+	<head> 
+		<link rel="shortcut icon" type="image/x-icon" href="/favicon.ico" /> 
+		<link rel="icon" type="image/x-icon" href="/favicon.ico" /> 
+		<meta charset="utf-8" />
+		<title>Infomedia Quickbooks Integration - @Page.Title</title>
+		<link href="@Href("~/Styles/Site.css")" rel="stylesheet" />
+		<link href="@Href("~/favicon.ico")" rel="shortcut icon" type="image/x-icon" />
+		<link rel="stylesheet" type="text/css" href="@Href("/Styles/Style.css")" /> 
+		<script src="http://code.jquery.com/jquery-1.4.2.min.js" type="text/javascript"></script>
+		@RenderSection("head",false)
+ 
+	</head> 
+	<body> 
+		<div id="container"> 
+			<div id="header"> 
+				<a href="/"><img src="/graphics/logo.gif" id="logolink"></a> 
+				<div id="nav"> 
+					<a href="http://www.infomedia.com/who-we-are" style="margin-left:-33px">Who We Are</a> 
+					<a href="http://www.infomedia.com/about">What We Do</a> 
+					<a href="http://www.infomedia.com/our-process">How We Can Help You</a> 
+					<a href="http://blog.infomedia.com">Our Blog</a> 
+				</div> 
+ 
+			</div><!-- header --> 
+ 
+			<div id="content"> 
+					<div id="login">
+						@if (WebSecurity.IsAuthenticated) {
+							<ul>
+								<li><a href="@Href("~/Account/Company-Profile")">Profile</a></li>
+								<li><a href="@Href("~/Account/Unprocessed-Invoices")">Unprocessed Invoices</a></li>
+								<li><a href="@Href("~/Account/Inventory")">Inventory</a></li>
+								<li>Welcome <a href="@Href("~/Account/ChangePassword")"  title="Change password">@WebSecurity.CurrentUserName</a>!</li>
+								<li><a href="@Href("~/Account/Logout")">Logout</a></li>
+							</ul>
+						} else {
+							<ul>
+								<li><a href="@Href("~/Account/Login")">Login</a></li>
+							</ul>
+						}
+					</div>
+					
+				<div id="main">
+					<div id="content">
+						<h1>@Page.Title</h1>
+						@RenderBody()
+					</div>
+				</div>
+				<div id="clear"></div>	
+			</div><!-- content --> 
+ 
+			<div id="footer"> 
+				<div id="left_foot"> 
+					<strong>Infomedia</strong> 
+					<div style="line-height:16px; margin-bottom: 7px"> 
+					201 Summit Parkway <br/> 
+					Birmingham, AL 35209  <br/>   
+					<a href="http://maps.google.com/maps?f=q&hl=en&q=201+Summit+Parkway,+35209&ie=UTF8&z=15&om=1&iwloc=addr" target="new">[Directions]</a></div> 
+					Phone (205) 823-4440 <br/>     
+					Fax (800) 419-8620
+					</div> 
+		
+				<div id="right_foot"><a href="http://www.infomedia.com/Birmingham">Birmingham, AL</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a href="http://www.infomedia.com/Montgomery">Montgomery, AL</a>&nbsp;&nbsp;|&nbsp;&nbsp;<A href="http://www.infomedia.com/Nashville">Nashville, TN</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a href="http://blog.infomedia.com">Blog</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a href="https://ecommerce.isafe.net/isafe/infomedia/onlinepay.asp">Pay Your Bill Online</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a href="http://www.infomedia.com/contact-us">Contact Us</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<A href="/">Home</a><a href="http://twitter.com/infomediadotcom"><img src="/graphics/twitter.gif" height="16" width="16" border="0" style="margin: 0 0 -3px 16px;" /></a><a href="http://www.facebook.com/infomedia"><img src="/graphics/facebook.gif" height="16" width="16" border="0" style="margin: 0 0 -3px 16px;" /></a><a href="http://www.linkedin.com/companies/infomedia_2"><img src="/graphics/linkedin.gif" height="16" width="16" border="0" style="margin: 0 0 -3px 16px;" /></a><br/> 
+					<div style="width: 710px; margin-top:97px; 	text-align: right; font-size: 11px;">&copy; @DateTime.Now.Year - Infomedia, Inc. All Rights Reserved.</div> 
+					</div> 
+				<div id="clear"></div>		
+			</div><!-- footer -->
+		</div>
+    </body>
+</html>

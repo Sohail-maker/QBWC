@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="ContentManager" Class="ContentManagerDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=10.8.0.200;Initial Catalog=ContentManager;Persist Security Info=True;User ID=workflow" SettingsObjectName="QuickbooksWebService.DomainModel.Properties.Settings" SettingsPropertyName="ContentManagerConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.shops_inventory" Member="shops_inventories">
+    <Type Name="shops_inventory">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="clientID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="shopID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="title" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="price1" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="price2" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="price3" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="weightInOunces" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="status" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="recordID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="soldOut" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="featured" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="qty" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="locationId" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="tag" Type="System.String" DbType="VarChar(255)" CanBeNull="true" />
+      <Column Name="freeShipping" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="variablePricing" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="volume_price" Type="System.Decimal" DbType="Money" CanBeNull="true" />
+      <Column Name="volume_qtyRequired" Type="System.Int32" DbType="Int" CanBeNull="true" />
+    </Type>
+  </Table>
+</Database>

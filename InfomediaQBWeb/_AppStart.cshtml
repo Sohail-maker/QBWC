@@ -1,0 +1,9 @@
+﻿@{
+     WebSecurity.InitializeDatabaseConnection("Quickbooks", "UserProfile", "UserId", "Email", true);
+     WebMail.SmtpServer = "mail.highspd.net";
+     WebMail.EnableSsl = false;
+     WebMail.UserName = "robot@infomedia.net";
+     WebMail.Password = "cm11";
+	 WebMail.SmtpPort = 587;
+     WebMail.From = "support@infomedia.com";
+}

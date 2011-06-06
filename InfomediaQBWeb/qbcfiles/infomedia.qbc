@@ -1,0 +1,11 @@
+<QBWCXML>
+  <AppName>Infomedia Quickbooks Web Integration</AppName>
+  <AppID />
+  <AppURL>http://localhost:50862/InfomediaQBWeb/QWCPOSWebService.asmx</AppURL>
+  <AppDescription>Imports your online sales and customers to your Quickbooks Enterprise or Quickbooks POS.</AppDescription>
+  <AppSupport>http://localhost:50862/InfomediaQBWeb/QWCPOSWebService.asmx?wsdl</AppSupport>
+  <UserName></UserName>
+  <OwnerID>00000000-0000-0000-0000-000000000000</OwnerID>
+  <FileID>00000000-0000-0000-0000-000000000000</FileID>
+  <QBType>QBPos</QBType>
+</QBWCXML>

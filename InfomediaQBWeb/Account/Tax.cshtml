@@ -1,0 +1,68 @@
+﻿@using QuickbooksWebService.DomainModel;
+@{
+	var rep = new Repository();
+	var clientID = rep.GetUser(WebSecurity.CurrentUserId).ClientID;
+}
+@if(IsPost && IsAjax)
+{
+	var taxcode = rep.GetSalesTaxCode(clientID ?? 0, Convert.ToInt32(Request["id"]));
+	taxcode.Active = false;
+	rep.Save();
+}
+else
+{
+    WebSecurity.RequireAuthenticatedUser();
+	Page.Title = "Sales Tax References";
+    Layout = "~/_SiteLayout.cshtml";
+
+	
+	
+}
+@section head {
+    <script type="text/javascript">
+    	$(document).ready(function () {
+
+    		$('.delete')
+			.css('cursor', 'pointer')
+			.css('color','blue')
+			.click(function () { update($(this)); });
+    	});
+
+    	function update(obj) {
+    		var tr = obj.parent().parent();
+			var postElements = tr.serialize();
+			$.post('tax', { id: obj.attr('id') }, function () {
+				tr.append("<td id='saved'>Removed</td>");
+				setTimeout("$('#saved').remove();", 2000);
+				tr.remove();
+			});
+		}
+	</script>
+}
+
+<div>
+<table id="rates">
+		<tr>
+			<th>Tax Item Name</th>
+			<th>Rate</th>
+		</tr>
+	@{
+	var codes = rep.GetSalesTaxCodes(clientID).Where(s => s.Active != false);
+		foreach (var code in codes)
+		{
+		
+			<tr>
+				<td>
+					@code.QuickbooksFullName
+				</td>
+				<td>
+					@code.Rate
+				</td>
+				<td>
+					<span class="delete" id="@code.SalesTaxCodeID">Remove</span>
+				</td>
+			</tr>
+		}
+	}
+</table>
+</div>

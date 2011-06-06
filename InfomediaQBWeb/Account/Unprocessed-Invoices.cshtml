@@ -1,0 +1,57 @@
+﻿@using QuickbooksWebService.DomainModel;
+@{
+    WebSecurity.RequireAuthenticatedUser();
+	Page.Title = "Receipts";
+    Layout = "../_SiteLayout.cshtml";
+	var rep = new Repository();
+	var clientid = rep.GetUser(WebSecurity.CurrentUserId).ClientID;
+	var failures = rep.GetFailedOrders(clientid).Where(o => !o.Imported);//.Select(o => o.Order.OrderNumber);
+
+	if(IsPost && IsAjax)
+	{
+		var id = Convert.ToInt32(Request["id"]);
+		var failedOrders = rep.GetFailedOrders(clientid).Where(c => c.FailedOrderID == id);
+		failedOrders.Select(f => f.Imported = true).ToList();
+		rep.Save();
+	}
+}
+
+@section head {
+    <style type="text/css">
+	.submit:hover{
+		cursor:pointer;
+		color:Blue;
+		}
+	</style>
+}
+
+<table cellpadding="30" cellspacing="30">
+  
+    @foreach(var failure in failures.Where(o => !o.Order.Receipt.IsEmpty())){
+		<tr >
+			<td style="border:1px solid black;">
+			@Html.Raw(failure.Order.Receipt)
+			</td>
+			<td valign="top">
+				<span class="submit" id="@failure.FailedOrderID">Mark Complete</span>
+			</td>
+		</tr>
+	}
+</table>
+<script type="text/javascript" src="http://ajax.Microsoft.com/ajax/jQuery/jquery-1.3.2.js"></script>
+<script type="text/javascript">
+	$(document).ready(function () {
+		$('.submit').click(function () {
+			var thisItem = $(this);
+			var id = $(this).attr('id');
+			var item = $('#' + id);
+			$.post('unprocessed-invoices', { id: id }, function () {
+				item.fadeOut('slow', function () {
+					item.text('Complete');
+					item.fadeIn('slow');
+					item.removeClass('submit');
+				});
+			});
+		});
+	});
+</script>

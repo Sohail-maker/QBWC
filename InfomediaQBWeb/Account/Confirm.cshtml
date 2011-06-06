@@ -1,0 +1,94 @@
+﻿@using QuickbooksWebService.DomainModel;
+@{
+    // Set the layout page and page title
+    Layout = "~/_SiteLayout.cshtml";
+    Page.Title = "Registration Confirmation Page";
+	bool returnFile = false;
+
+
+	string username = Request["u"];
+    string message = "";
+    var confirmationToken = Request["confirmationCode"];
+	string password = Request["password"];
+	string confpassword = !Request["confpassword"].IsEmpty() ? Request["confpassword"] : "error";
+    if (!confirmationToken.IsEmpty()) {
+		WebSecurity.Logout();
+			
+
+		if (WebSecurity.ConfirmAccount(confirmationToken) && password == confpassword) {
+            message = "Registration Confirmed! Your Download should start immediately.  <span id=\"download\">If not, click <a href=\"file\">here</a>.</span><p> Install the file in your Quickbooks Web Connector and use the password you just entered for your account.</p>";
+			returnFile = true;
+			WebSecurity.ResetPassword(WebSecurity.GeneratePasswordResetToken(username),password);
+			WebSecurity.Login(username,password);
+		} else if(password != confpassword)
+			{
+			message = "Password did not match password confirmation.";
+			}
+		else
+		{
+            message = "Could not confirm your registration info";
+        }
+    }
+	else if(IsAjax && IsPost)
+	{
+		var rep = new Repository();
+		var user = rep.GetUser(WebSecurity.CurrentUserId);
+		var client = rep.GetClient(user.ClientID ?? 0);
+		client.ShippingReference = Request["Shipping"];
+		client.SalesTaxReference = Request["tax"];
+		rep.Save();
+	}
+}
+
+@if (!@message.IsEmpty()) { //Successfully changed password and confirmed account.
+    <p>@Html.Raw(message)</p>
+	if(returnFile){
+		<script type="text/javascript">
+			$(document).ready(function () {
+				window.location.href = "file?u=@username";
+				$('#download').remove();
+				$('#save').click(function () {
+					$.post('confirm', $('#shiptax').serialize(), function () {
+						$('#form').fadeOut('slow', function () {
+							$('#mCont').fadeIn();
+						});
+					});
+				});
+			});
+		</script>
+		<div id="form">
+			<p>
+				Visit the links below to configure your quickbooks account with your ecommerce shop.
+			</p>
+			
+		</div>
+		<div id="mCont">
+			<a href="@Href("~/Account/Tax")">Tax Codes ~ Update your Sales Tax Mapping.</a>
+			<a href="@Href("~/Account/Inventory")">Inventory ~ Your Website/Quickbooks Inventory Mapping.</a>
+			<a href="@Href("~/Account/Profile")">Profile ~ Miscellaneous Configuration</a>
+		</div>
+	}
+}
+else
+{
+    <form method="post" action="">
+        <fieldset>
+            <legend>Confirmation Code</legend>
+            <label for="confirmationCode">
+                Please enter the confirmation code sent to you via email and reset your password.
+            </label>
+            <input type="text" id="confirmationCode" name="confirmationCode" title="Confirmation code" />
+			<label for="password">
+				Enter a password for your account.
+			</label>
+			<input type="password" id="password" name="password" title="Account Password" />
+			<label for="confpassword">
+				Confirm your password
+			</label>
+			<input type="password" id="confpassword" name="confpassword" title="Account Password" />
+            <input type="submit" value="Confirm" title="Confirm registration" />
+			<input type="hidden" name="username" value="@Request["u"]" />
+        </fieldset>
+    </form>
+		
+}

@@ -1,0 +1,13 @@
+C:\Git\QuickbooksWebService\QuickbooksWebService\bin\QuickbooksWebService.dll
+C:\Git\QuickbooksWebService\QuickbooksWebService\bin\QuickbooksWebService.pdb
+C:\Git\QuickbooksWebService\QuickbooksWebService\bin\QuickbooksWebService.DomainModel.dll
+C:\Git\QuickbooksWebService\QuickbooksWebService\bin\Microsoft.Office.InfoPath.Permission.dll
+C:\Git\QuickbooksWebService\QuickbooksWebService\bin\QuickbooksWebService.DomainModel.pdb
+C:\Git\QuickbooksWebService\QuickbooksWebService\obj\Debug\ResolveAssemblyReference.cache
+C:\Git\QuickbooksWebService\QuickbooksWebService\obj\Debug\Interop.QBFC10Lib.dll
+C:\Git\QuickbooksWebService\QuickbooksWebService\obj\Debug\QuickbooksWebService.csproj.ResolveComReference.cache
+C:\Git\QuickbooksWebService\QuickbooksWebService\obj\Debug\QwcService.QwcService.resources
+C:\Git\QuickbooksWebService\QuickbooksWebService\obj\Debug\GenerateResource.read.1.tlog
+C:\Git\QuickbooksWebService\QuickbooksWebService\obj\Debug\GenerateResource.write.1.tlog
+C:\Git\QuickbooksWebService\QuickbooksWebService\obj\Debug\QuickbooksWebService.dll
+C:\Git\QuickbooksWebService\QuickbooksWebService\obj\Debug\QuickbooksWebService.pdb
