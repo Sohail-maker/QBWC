@@ -88,10 +88,7 @@ namespace QuickbooksWebService.QuickbooksObjects
 				);
 				var customerNode = doc.LastNode.Document.Descendants().Where(n => n.Name == "CustomerRef").SingleOrDefault();
 				var salesTaxNode = doc.LastNode.Document.Descendants().Where(n => n.Name == "ItemSalesTaxRef").SingleOrDefault();
-				if (order.OrderTaxPercentage != null )
-				{
-					salesTaxNode.Add(new XElement("FullName", TaxFullName));
-				}
+				
 				foreach (var item in lineItems)
 				{
 					(lastLineItemNode == null ? salesTaxNode : lastLineItemNode).AddAfterSelf(
