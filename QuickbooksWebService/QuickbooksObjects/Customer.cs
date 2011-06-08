@@ -45,15 +45,21 @@ namespace QuickbooksWebService.QuickbooksObjects
 									new XElement("City",ShipCity),
 									new XElement("State",ShipState),
 									new XElement("PostalCode",ShipPostalCode),
-									new XElement("Country",ShipCountry))
-								//new XElement("Phone",Phone),
-								//new XElement("Email",Email)
+									new XElement("Country",ShipCountry)),
+								new XElement("Phone",Phone),
+								new XElement("Email",Email)
+								
 							)
 						)	
 					)
 				)
 			);
-			
+			if(!String.IsNullOrEmpty(AltContact))
+			{
+				doc.Root.Descendants("Email").FirstOrDefault().AddAfterSelf(
+					new XElement("AltContact",AltContact)
+				);
+			}
 			return doc;
 		}
 		private string Name{get{return String.Format("{0} {1} {2}",	firstname,lastname,_orderID);}}
@@ -72,10 +78,11 @@ namespace QuickbooksWebService.QuickbooksObjects
 		private string ShipState {get {return shopper.ShippingState;}}
 		private string ShipPostalCode {get {return shopper.ShippingPostalCode;}}
 		private string ShipCountry {get {return shopper.ShippingCountry;}}//</ShipAddress>
-		//private string Phone {get {return shopper.b_phone;}}
-		//private string Email {get {return shopper.email;}}
+		private string Phone {get {return shopper.Phone;}}
+		private string Email {get {return shopper.Email;}}
 		private string firstname{get{return shopper.BillingFirstName == String.Empty ? shopper.ShippingFirstname : shopper.BillingFirstName;}}
 		private string lastname{get{return shopper.BillingLastName == String.Empty ? shopper.ShippingLastName : shopper.BillingLastName;}}
+		private string AltContact{get{return shopper.AltContact;}}
 		//private string ListID{get{return rep.GetSalesTaxCode(BillState,shopper.Orders.FirstOrDefault().ClientID) != null ? rep.GetSalesTaxCode(BillState,shopper.Orders.FirstOrDefault().ClientID).SalesTaxListID : null;}}
 	}
 }

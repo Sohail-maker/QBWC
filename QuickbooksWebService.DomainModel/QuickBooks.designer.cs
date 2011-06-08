@@ -33,9 +33,6 @@ namespace QuickbooksWebService.DomainModel
     partial void InsertClient(Client instance);
     partial void UpdateClient(Client instance);
     partial void DeleteClient(Client instance);
-    partial void InsertCustomer(Customer instance);
-    partial void UpdateCustomer(Customer instance);
-    partial void DeleteCustomer(Customer instance);
     partial void InsertFailedOrder(FailedOrder instance);
     partial void UpdateFailedOrder(FailedOrder instance);
     partial void DeleteFailedOrder(FailedOrder instance);
@@ -75,6 +72,9 @@ namespace QuickbooksWebService.DomainModel
     partial void Insertwebpages_Role(webpages_Role instance);
     partial void Updatewebpages_Role(webpages_Role instance);
     partial void Deletewebpages_Role(webpages_Role instance);
+    partial void InsertCustomer(Customer instance);
+    partial void UpdateCustomer(Customer instance);
+    partial void DeleteCustomer(Customer instance);
     #endregion
 		
 		public QuickBooksDataContext() : 
@@ -120,14 +120,6 @@ namespace QuickbooksWebService.DomainModel
 			get
 			{
 				return this.GetTable<webpages_UsersInRole>();
-			}
-		}
-		
-		public System.Data.Linq.Table<Customer> Customers
-		{
-			get
-			{
-				return this.GetTable<Customer>();
 			}
 		}
 		
@@ -232,6 +224,14 @@ namespace QuickbooksWebService.DomainModel
 			get
 			{
 				return this.GetTable<webpages_Role>();
+			}
+		}
+		
+		public System.Data.Linq.Table<Customer> Customers
+		{
+			get
+			{
+				return this.GetTable<Customer>();
 			}
 		}
 	}
@@ -892,593 +892,6 @@ namespace QuickbooksWebService.DomainModel
 					this._RoleId = value;
 				}
 			}
-		}
-	}
-	
-	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Customers")]
-	public partial class Customer : INotifyPropertyChanging, INotifyPropertyChanged
-	{
-		
-		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
-		
-		private int _CustomerID;
-		
-		private int _Shops_ShopperID;
-		
-		private bool _Reported;
-		
-		private System.Nullable<int> _TransactionID;
-		
-		private string _BillingFirstName;
-		
-		private string _BillingLastName;
-		
-		private string _BillingAddress1;
-		
-		private string _BillingAddress2;
-		
-		private string _BillingCity;
-		
-		private string _BillingState;
-		
-		private string _BillingZip;
-		
-		private string _BillingCountry;
-		
-		private string _ShippingFirstname;
-		
-		private string _ShippingLastName;
-		
-		private string _ShippingAddress1;
-		
-		private string _ShippingAddress2;
-		
-		private string _ShippingCity;
-		
-		private string _ShippingState;
-		
-		private string _ShippingPostalCode;
-		
-		private string _ShippingCountry;
-		
-		private EntitySet<Order> _Orders;
-		
-		private EntityRef<Transaction> _Transaction;
-		
-    #region Extensibility Method Definitions
-    partial void OnLoaded();
-    partial void OnValidate(System.Data.Linq.ChangeAction action);
-    partial void OnCreated();
-    partial void OnCustomerIDChanging(int value);
-    partial void OnCustomerIDChanged();
-    partial void OnShops_ShopperIDChanging(int value);
-    partial void OnShops_ShopperIDChanged();
-    partial void OnReportedChanging(bool value);
-    partial void OnReportedChanged();
-    partial void OnTransactionIDChanging(System.Nullable<int> value);
-    partial void OnTransactionIDChanged();
-    partial void OnBillingFirstNameChanging(string value);
-    partial void OnBillingFirstNameChanged();
-    partial void OnBillingLastNameChanging(string value);
-    partial void OnBillingLastNameChanged();
-    partial void OnBillingAddress1Changing(string value);
-    partial void OnBillingAddress1Changed();
-    partial void OnBillingAddress2Changing(string value);
-    partial void OnBillingAddress2Changed();
-    partial void OnBillingCityChanging(string value);
-    partial void OnBillingCityChanged();
-    partial void OnBillingStateChanging(string value);
-    partial void OnBillingStateChanged();
-    partial void OnBillingZipChanging(string value);
-    partial void OnBillingZipChanged();
-    partial void OnBillingCountryChanging(string value);
-    partial void OnBillingCountryChanged();
-    partial void OnShippingFirstnameChanging(string value);
-    partial void OnShippingFirstnameChanged();
-    partial void OnShippingLastNameChanging(string value);
-    partial void OnShippingLastNameChanged();
-    partial void OnShippingAddress1Changing(string value);
-    partial void OnShippingAddress1Changed();
-    partial void OnShippingAddress2Changing(string value);
-    partial void OnShippingAddress2Changed();
-    partial void OnShippingCityChanging(string value);
-    partial void OnShippingCityChanged();
-    partial void OnShippingStateChanging(string value);
-    partial void OnShippingStateChanged();
-    partial void OnShippingPostalCodeChanging(string value);
-    partial void OnShippingPostalCodeChanged();
-    partial void OnShippingCountryChanging(string value);
-    partial void OnShippingCountryChanged();
-    #endregion
-		
-		public Customer()
-		{
-			this._Orders = new EntitySet<Order>(new Action<Order>(this.attach_Orders), new Action<Order>(this.detach_Orders));
-			this._Transaction = default(EntityRef<Transaction>);
-			OnCreated();
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CustomerID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
-		public int CustomerID
-		{
-			get
-			{
-				return this._CustomerID;
-			}
-			set
-			{
-				if ((this._CustomerID != value))
-				{
-					this.OnCustomerIDChanging(value);
-					this.SendPropertyChanging();
-					this._CustomerID = value;
-					this.SendPropertyChanged("CustomerID");
-					this.OnCustomerIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Shops_ShopperID", DbType="Int NOT NULL")]
-		public int Shops_ShopperID
-		{
-			get
-			{
-				return this._Shops_ShopperID;
-			}
-			set
-			{
-				if ((this._Shops_ShopperID != value))
-				{
-					this.OnShops_ShopperIDChanging(value);
-					this.SendPropertyChanging();
-					this._Shops_ShopperID = value;
-					this.SendPropertyChanged("Shops_ShopperID");
-					this.OnShops_ShopperIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Reported", DbType="Bit NOT NULL")]
-		public bool Reported
-		{
-			get
-			{
-				return this._Reported;
-			}
-			set
-			{
-				if ((this._Reported != value))
-				{
-					this.OnReportedChanging(value);
-					this.SendPropertyChanging();
-					this._Reported = value;
-					this.SendPropertyChanged("Reported");
-					this.OnReportedChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TransactionID", DbType="Int")]
-		public System.Nullable<int> TransactionID
-		{
-			get
-			{
-				return this._TransactionID;
-			}
-			set
-			{
-				if ((this._TransactionID != value))
-				{
-					if (this._Transaction.HasLoadedOrAssignedValue)
-					{
-						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
-					}
-					this.OnTransactionIDChanging(value);
-					this.SendPropertyChanging();
-					this._TransactionID = value;
-					this.SendPropertyChanged("TransactionID");
-					this.OnTransactionIDChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BillingFirstName", DbType="NVarChar(100)")]
-		public string BillingFirstName
-		{
-			get
-			{
-				return this._BillingFirstName;
-			}
-			set
-			{
-				if ((this._BillingFirstName != value))
-				{
-					this.OnBillingFirstNameChanging(value);
-					this.SendPropertyChanging();
-					this._BillingFirstName = value;
-					this.SendPropertyChanged("BillingFirstName");
-					this.OnBillingFirstNameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BillingLastName", DbType="NVarChar(100)")]
-		public string BillingLastName
-		{
-			get
-			{
-				return this._BillingLastName;
-			}
-			set
-			{
-				if ((this._BillingLastName != value))
-				{
-					this.OnBillingLastNameChanging(value);
-					this.SendPropertyChanging();
-					this._BillingLastName = value;
-					this.SendPropertyChanged("BillingLastName");
-					this.OnBillingLastNameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BillingAddress1", DbType="NVarChar(100)")]
-		public string BillingAddress1
-		{
-			get
-			{
-				return this._BillingAddress1;
-			}
-			set
-			{
-				if ((this._BillingAddress1 != value))
-				{
-					this.OnBillingAddress1Changing(value);
-					this.SendPropertyChanging();
-					this._BillingAddress1 = value;
-					this.SendPropertyChanged("BillingAddress1");
-					this.OnBillingAddress1Changed();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BillingAddress2", DbType="NVarChar(100)")]
-		public string BillingAddress2
-		{
-			get
-			{
-				return this._BillingAddress2;
-			}
-			set
-			{
-				if ((this._BillingAddress2 != value))
-				{
-					this.OnBillingAddress2Changing(value);
-					this.SendPropertyChanging();
-					this._BillingAddress2 = value;
-					this.SendPropertyChanged("BillingAddress2");
-					this.OnBillingAddress2Changed();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BillingCity", DbType="NVarChar(50)")]
-		public string BillingCity
-		{
-			get
-			{
-				return this._BillingCity;
-			}
-			set
-			{
-				if ((this._BillingCity != value))
-				{
-					this.OnBillingCityChanging(value);
-					this.SendPropertyChanging();
-					this._BillingCity = value;
-					this.SendPropertyChanged("BillingCity");
-					this.OnBillingCityChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BillingState", DbType="NVarChar(50)")]
-		public string BillingState
-		{
-			get
-			{
-				return this._BillingState;
-			}
-			set
-			{
-				if ((this._BillingState != value))
-				{
-					this.OnBillingStateChanging(value);
-					this.SendPropertyChanging();
-					this._BillingState = value;
-					this.SendPropertyChanged("BillingState");
-					this.OnBillingStateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BillingZip", DbType="NVarChar(15)")]
-		public string BillingZip
-		{
-			get
-			{
-				return this._BillingZip;
-			}
-			set
-			{
-				if ((this._BillingZip != value))
-				{
-					this.OnBillingZipChanging(value);
-					this.SendPropertyChanging();
-					this._BillingZip = value;
-					this.SendPropertyChanged("BillingZip");
-					this.OnBillingZipChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BillingCountry", DbType="NVarChar(50)")]
-		public string BillingCountry
-		{
-			get
-			{
-				return this._BillingCountry;
-			}
-			set
-			{
-				if ((this._BillingCountry != value))
-				{
-					this.OnBillingCountryChanging(value);
-					this.SendPropertyChanging();
-					this._BillingCountry = value;
-					this.SendPropertyChanged("BillingCountry");
-					this.OnBillingCountryChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ShippingFirstname", DbType="NVarChar(100)")]
-		public string ShippingFirstname
-		{
-			get
-			{
-				return this._ShippingFirstname;
-			}
-			set
-			{
-				if ((this._ShippingFirstname != value))
-				{
-					this.OnShippingFirstnameChanging(value);
-					this.SendPropertyChanging();
-					this._ShippingFirstname = value;
-					this.SendPropertyChanged("ShippingFirstname");
-					this.OnShippingFirstnameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ShippingLastName", DbType="NVarChar(100)")]
-		public string ShippingLastName
-		{
-			get
-			{
-				return this._ShippingLastName;
-			}
-			set
-			{
-				if ((this._ShippingLastName != value))
-				{
-					this.OnShippingLastNameChanging(value);
-					this.SendPropertyChanging();
-					this._ShippingLastName = value;
-					this.SendPropertyChanged("ShippingLastName");
-					this.OnShippingLastNameChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ShippingAddress1", DbType="NVarChar(100)")]
-		public string ShippingAddress1
-		{
-			get
-			{
-				return this._ShippingAddress1;
-			}
-			set
-			{
-				if ((this._ShippingAddress1 != value))
-				{
-					this.OnShippingAddress1Changing(value);
-					this.SendPropertyChanging();
-					this._ShippingAddress1 = value;
-					this.SendPropertyChanged("ShippingAddress1");
-					this.OnShippingAddress1Changed();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ShippingAddress2", DbType="NVarChar(100)")]
-		public string ShippingAddress2
-		{
-			get
-			{
-				return this._ShippingAddress2;
-			}
-			set
-			{
-				if ((this._ShippingAddress2 != value))
-				{
-					this.OnShippingAddress2Changing(value);
-					this.SendPropertyChanging();
-					this._ShippingAddress2 = value;
-					this.SendPropertyChanged("ShippingAddress2");
-					this.OnShippingAddress2Changed();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ShippingCity", DbType="NVarChar(50)")]
-		public string ShippingCity
-		{
-			get
-			{
-				return this._ShippingCity;
-			}
-			set
-			{
-				if ((this._ShippingCity != value))
-				{
-					this.OnShippingCityChanging(value);
-					this.SendPropertyChanging();
-					this._ShippingCity = value;
-					this.SendPropertyChanged("ShippingCity");
-					this.OnShippingCityChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ShippingState", DbType="NVarChar(15)")]
-		public string ShippingState
-		{
-			get
-			{
-				return this._ShippingState;
-			}
-			set
-			{
-				if ((this._ShippingState != value))
-				{
-					this.OnShippingStateChanging(value);
-					this.SendPropertyChanging();
-					this._ShippingState = value;
-					this.SendPropertyChanged("ShippingState");
-					this.OnShippingStateChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ShippingPostalCode", DbType="NVarChar(50)")]
-		public string ShippingPostalCode
-		{
-			get
-			{
-				return this._ShippingPostalCode;
-			}
-			set
-			{
-				if ((this._ShippingPostalCode != value))
-				{
-					this.OnShippingPostalCodeChanging(value);
-					this.SendPropertyChanging();
-					this._ShippingPostalCode = value;
-					this.SendPropertyChanged("ShippingPostalCode");
-					this.OnShippingPostalCodeChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ShippingCountry", DbType="NVarChar(50)")]
-		public string ShippingCountry
-		{
-			get
-			{
-				return this._ShippingCountry;
-			}
-			set
-			{
-				if ((this._ShippingCountry != value))
-				{
-					this.OnShippingCountryChanging(value);
-					this.SendPropertyChanging();
-					this._ShippingCountry = value;
-					this.SendPropertyChanged("ShippingCountry");
-					this.OnShippingCountryChanged();
-				}
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Customer_Order", Storage="_Orders", ThisKey="CustomerID", OtherKey="CustomerID")]
-		public EntitySet<Order> Orders
-		{
-			get
-			{
-				return this._Orders;
-			}
-			set
-			{
-				this._Orders.Assign(value);
-			}
-		}
-		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Transaction_Customer", Storage="_Transaction", ThisKey="TransactionID", OtherKey="TransactionID", IsForeignKey=true)]
-		public Transaction Transaction
-		{
-			get
-			{
-				return this._Transaction.Entity;
-			}
-			set
-			{
-				Transaction previousValue = this._Transaction.Entity;
-				if (((previousValue != value) 
-							|| (this._Transaction.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Transaction.Entity = null;
-						previousValue.Customers.Remove(this);
-					}
-					this._Transaction.Entity = value;
-					if ((value != null))
-					{
-						value.Customers.Add(this);
-						this._TransactionID = value.TransactionID;
-					}
-					else
-					{
-						this._TransactionID = default(Nullable<int>);
-					}
-					this.SendPropertyChanged("Transaction");
-				}
-			}
-		}
-		
-		public event PropertyChangingEventHandler PropertyChanging;
-		
-		public event PropertyChangedEventHandler PropertyChanged;
-		
-		protected virtual void SendPropertyChanging()
-		{
-			if ((this.PropertyChanging != null))
-			{
-				this.PropertyChanging(this, emptyChangingEventArgs);
-			}
-		}
-		
-		protected virtual void SendPropertyChanged(String propertyName)
-		{
-			if ((this.PropertyChanged != null))
-			{
-				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
-			}
-		}
-		
-		private void attach_Orders(Order entity)
-		{
-			this.SendPropertyChanging();
-			entity.Customer = this;
-		}
-		
-		private void detach_Orders(Order entity)
-		{
-			this.SendPropertyChanging();
-			entity.Customer = null;
 		}
 	}
 	
@@ -2186,9 +1599,9 @@ namespace QuickbooksWebService.DomainModel
 		
 		private EntitySet<OrderLineItem> _OrderLineItems;
 		
-		private EntityRef<Customer> _Customer;
-		
 		private EntityRef<Transaction> _Transaction;
+		
+		private EntityRef<Customer> _Customer;
 		
     #region Extensibility Method Definitions
     partial void OnLoaded();
@@ -2232,8 +1645,8 @@ namespace QuickbooksWebService.DomainModel
 		{
 			this._FailedOrders = new EntitySet<FailedOrder>(new Action<FailedOrder>(this.attach_FailedOrders), new Action<FailedOrder>(this.detach_FailedOrders));
 			this._OrderLineItems = new EntitySet<OrderLineItem>(new Action<OrderLineItem>(this.attach_OrderLineItems), new Action<OrderLineItem>(this.detach_OrderLineItems));
-			this._Customer = default(EntityRef<Customer>);
 			this._Transaction = default(EntityRef<Transaction>);
+			this._Customer = default(EntityRef<Customer>);
 			OnCreated();
 		}
 		
@@ -2591,40 +2004,6 @@ namespace QuickbooksWebService.DomainModel
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Customer_Order", Storage="_Customer", ThisKey="CustomerID", OtherKey="CustomerID", IsForeignKey=true)]
-		public Customer Customer
-		{
-			get
-			{
-				return this._Customer.Entity;
-			}
-			set
-			{
-				Customer previousValue = this._Customer.Entity;
-				if (((previousValue != value) 
-							|| (this._Customer.HasLoadedOrAssignedValue == false)))
-				{
-					this.SendPropertyChanging();
-					if ((previousValue != null))
-					{
-						this._Customer.Entity = null;
-						previousValue.Orders.Remove(this);
-					}
-					this._Customer.Entity = value;
-					if ((value != null))
-					{
-						value.Orders.Add(this);
-						this._CustomerID = value.CustomerID;
-					}
-					else
-					{
-						this._CustomerID = default(int);
-					}
-					this.SendPropertyChanged("Customer");
-				}
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Transaction_Order", Storage="_Transaction", ThisKey="TransactionID", OtherKey="TransactionID", IsForeignKey=true)]
 		public Transaction Transaction
 		{
@@ -2655,6 +2034,40 @@ namespace QuickbooksWebService.DomainModel
 						this._TransactionID = default(Nullable<int>);
 					}
 					this.SendPropertyChanged("Transaction");
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Customer_Order", Storage="_Customer", ThisKey="CustomerID", OtherKey="CustomerID", IsForeignKey=true)]
+		public Customer Customer
+		{
+			get
+			{
+				return this._Customer.Entity;
+			}
+			set
+			{
+				Customer previousValue = this._Customer.Entity;
+				if (((previousValue != value) 
+							|| (this._Customer.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Customer.Entity = null;
+						previousValue.Orders.Remove(this);
+					}
+					this._Customer.Entity = value;
+					if ((value != null))
+					{
+						value.Orders.Add(this);
+						this._CustomerID = value.CustomerID;
+					}
+					else
+					{
+						this._CustomerID = default(int);
+					}
+					this.SendPropertyChanged("Customer");
 				}
 			}
 		}
@@ -3681,9 +3094,9 @@ namespace QuickbooksWebService.DomainModel
 		
 		private System.Nullable<bool> _ProcessedItemSalesTaxQueryRs;
 		
-		private EntitySet<Customer> _Customers;
-		
 		private EntitySet<Order> _Orders;
+		
+		private EntitySet<Customer> _Customers;
 		
 		private EntityRef<Client> _Client;
 		
@@ -3707,8 +3120,8 @@ namespace QuickbooksWebService.DomainModel
 		
 		public Transaction()
 		{
-			this._Customers = new EntitySet<Customer>(new Action<Customer>(this.attach_Customers), new Action<Customer>(this.detach_Customers));
 			this._Orders = new EntitySet<Order>(new Action<Order>(this.attach_Orders), new Action<Order>(this.detach_Orders));
+			this._Customers = new EntitySet<Customer>(new Action<Customer>(this.attach_Customers), new Action<Customer>(this.detach_Customers));
 			this._Client = default(EntityRef<Client>);
 			OnCreated();
 		}
@@ -3837,19 +3250,6 @@ namespace QuickbooksWebService.DomainModel
 			}
 		}
 		
-		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Transaction_Customer", Storage="_Customers", ThisKey="TransactionID", OtherKey="TransactionID")]
-		public EntitySet<Customer> Customers
-		{
-			get
-			{
-				return this._Customers;
-			}
-			set
-			{
-				this._Customers.Assign(value);
-			}
-		}
-		
 		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Transaction_Order", Storage="_Orders", ThisKey="TransactionID", OtherKey="TransactionID")]
 		public EntitySet<Order> Orders
 		{
@@ -3860,6 +3260,19 @@ namespace QuickbooksWebService.DomainModel
 			set
 			{
 				this._Orders.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Transaction_Customer", Storage="_Customers", ThisKey="TransactionID", OtherKey="TransactionID")]
+		public EntitySet<Customer> Customers
+		{
+			get
+			{
+				return this._Customers;
+			}
+			set
+			{
+				this._Customers.Assign(value);
 			}
 		}
 		
@@ -3917,18 +3330,6 @@ namespace QuickbooksWebService.DomainModel
 			}
 		}
 		
-		private void attach_Customers(Customer entity)
-		{
-			this.SendPropertyChanging();
-			entity.Transaction = this;
-		}
-		
-		private void detach_Customers(Customer entity)
-		{
-			this.SendPropertyChanging();
-			entity.Transaction = null;
-		}
-		
 		private void attach_Orders(Order entity)
 		{
 			this.SendPropertyChanging();
@@ -3936,6 +3337,18 @@ namespace QuickbooksWebService.DomainModel
 		}
 		
 		private void detach_Orders(Order entity)
+		{
+			this.SendPropertyChanging();
+			entity.Transaction = null;
+		}
+		
+		private void attach_Customers(Customer entity)
+		{
+			this.SendPropertyChanging();
+			entity.Transaction = this;
+		}
+		
+		private void detach_Customers(Customer entity)
 		{
 			this.SendPropertyChanging();
 			entity.Transaction = null;
@@ -4502,6 +3915,665 @@ namespace QuickbooksWebService.DomainModel
 			{
 				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
 			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.Customers")]
+	public partial class Customer : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private int _CustomerID;
+		
+		private int _Shops_ShopperID;
+		
+		private bool _Reported;
+		
+		private System.Nullable<int> _TransactionID;
+		
+		private string _BillingFirstName;
+		
+		private string _BillingLastName;
+		
+		private string _BillingAddress1;
+		
+		private string _BillingAddress2;
+		
+		private string _BillingCity;
+		
+		private string _BillingState;
+		
+		private string _BillingZip;
+		
+		private string _BillingCountry;
+		
+		private string _ShippingFirstname;
+		
+		private string _ShippingLastName;
+		
+		private string _ShippingAddress1;
+		
+		private string _ShippingAddress2;
+		
+		private string _ShippingCity;
+		
+		private string _ShippingState;
+		
+		private string _ShippingPostalCode;
+		
+		private string _ShippingCountry;
+		
+		private string _Phone;
+		
+		private string _Email;
+		
+		private string _AltContact;
+		
+		private EntitySet<Order> _Orders;
+		
+		private EntityRef<Transaction> _Transaction;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnCustomerIDChanging(int value);
+    partial void OnCustomerIDChanged();
+    partial void OnShops_ShopperIDChanging(int value);
+    partial void OnShops_ShopperIDChanged();
+    partial void OnReportedChanging(bool value);
+    partial void OnReportedChanged();
+    partial void OnTransactionIDChanging(System.Nullable<int> value);
+    partial void OnTransactionIDChanged();
+    partial void OnBillingFirstNameChanging(string value);
+    partial void OnBillingFirstNameChanged();
+    partial void OnBillingLastNameChanging(string value);
+    partial void OnBillingLastNameChanged();
+    partial void OnBillingAddress1Changing(string value);
+    partial void OnBillingAddress1Changed();
+    partial void OnBillingAddress2Changing(string value);
+    partial void OnBillingAddress2Changed();
+    partial void OnBillingCityChanging(string value);
+    partial void OnBillingCityChanged();
+    partial void OnBillingStateChanging(string value);
+    partial void OnBillingStateChanged();
+    partial void OnBillingZipChanging(string value);
+    partial void OnBillingZipChanged();
+    partial void OnBillingCountryChanging(string value);
+    partial void OnBillingCountryChanged();
+    partial void OnShippingFirstnameChanging(string value);
+    partial void OnShippingFirstnameChanged();
+    partial void OnShippingLastNameChanging(string value);
+    partial void OnShippingLastNameChanged();
+    partial void OnShippingAddress1Changing(string value);
+    partial void OnShippingAddress1Changed();
+    partial void OnShippingAddress2Changing(string value);
+    partial void OnShippingAddress2Changed();
+    partial void OnShippingCityChanging(string value);
+    partial void OnShippingCityChanged();
+    partial void OnShippingStateChanging(string value);
+    partial void OnShippingStateChanged();
+    partial void OnShippingPostalCodeChanging(string value);
+    partial void OnShippingPostalCodeChanged();
+    partial void OnShippingCountryChanging(string value);
+    partial void OnShippingCountryChanged();
+    partial void OnPhoneChanging(string value);
+    partial void OnPhoneChanged();
+    partial void OnEmailChanging(string value);
+    partial void OnEmailChanged();
+    partial void OnAltContactChanging(string value);
+    partial void OnAltContactChanged();
+    #endregion
+		
+		public Customer()
+		{
+			this._Orders = new EntitySet<Order>(new Action<Order>(this.attach_Orders), new Action<Order>(this.detach_Orders));
+			this._Transaction = default(EntityRef<Transaction>);
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CustomerID", AutoSync=AutoSync.OnInsert, DbType="Int NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public int CustomerID
+		{
+			get
+			{
+				return this._CustomerID;
+			}
+			set
+			{
+				if ((this._CustomerID != value))
+				{
+					this.OnCustomerIDChanging(value);
+					this.SendPropertyChanging();
+					this._CustomerID = value;
+					this.SendPropertyChanged("CustomerID");
+					this.OnCustomerIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Shops_ShopperID", DbType="Int NOT NULL")]
+		public int Shops_ShopperID
+		{
+			get
+			{
+				return this._Shops_ShopperID;
+			}
+			set
+			{
+				if ((this._Shops_ShopperID != value))
+				{
+					this.OnShops_ShopperIDChanging(value);
+					this.SendPropertyChanging();
+					this._Shops_ShopperID = value;
+					this.SendPropertyChanged("Shops_ShopperID");
+					this.OnShops_ShopperIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Reported", DbType="Bit NOT NULL")]
+		public bool Reported
+		{
+			get
+			{
+				return this._Reported;
+			}
+			set
+			{
+				if ((this._Reported != value))
+				{
+					this.OnReportedChanging(value);
+					this.SendPropertyChanging();
+					this._Reported = value;
+					this.SendPropertyChanged("Reported");
+					this.OnReportedChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_TransactionID", DbType="Int")]
+		public System.Nullable<int> TransactionID
+		{
+			get
+			{
+				return this._TransactionID;
+			}
+			set
+			{
+				if ((this._TransactionID != value))
+				{
+					if (this._Transaction.HasLoadedOrAssignedValue)
+					{
+						throw new System.Data.Linq.ForeignKeyReferenceAlreadyHasValueException();
+					}
+					this.OnTransactionIDChanging(value);
+					this.SendPropertyChanging();
+					this._TransactionID = value;
+					this.SendPropertyChanged("TransactionID");
+					this.OnTransactionIDChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BillingFirstName", DbType="NVarChar(100)")]
+		public string BillingFirstName
+		{
+			get
+			{
+				return this._BillingFirstName;
+			}
+			set
+			{
+				if ((this._BillingFirstName != value))
+				{
+					this.OnBillingFirstNameChanging(value);
+					this.SendPropertyChanging();
+					this._BillingFirstName = value;
+					this.SendPropertyChanged("BillingFirstName");
+					this.OnBillingFirstNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BillingLastName", DbType="NVarChar(100)")]
+		public string BillingLastName
+		{
+			get
+			{
+				return this._BillingLastName;
+			}
+			set
+			{
+				if ((this._BillingLastName != value))
+				{
+					this.OnBillingLastNameChanging(value);
+					this.SendPropertyChanging();
+					this._BillingLastName = value;
+					this.SendPropertyChanged("BillingLastName");
+					this.OnBillingLastNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BillingAddress1", DbType="NVarChar(100)")]
+		public string BillingAddress1
+		{
+			get
+			{
+				return this._BillingAddress1;
+			}
+			set
+			{
+				if ((this._BillingAddress1 != value))
+				{
+					this.OnBillingAddress1Changing(value);
+					this.SendPropertyChanging();
+					this._BillingAddress1 = value;
+					this.SendPropertyChanged("BillingAddress1");
+					this.OnBillingAddress1Changed();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BillingAddress2", DbType="NVarChar(100)")]
+		public string BillingAddress2
+		{
+			get
+			{
+				return this._BillingAddress2;
+			}
+			set
+			{
+				if ((this._BillingAddress2 != value))
+				{
+					this.OnBillingAddress2Changing(value);
+					this.SendPropertyChanging();
+					this._BillingAddress2 = value;
+					this.SendPropertyChanged("BillingAddress2");
+					this.OnBillingAddress2Changed();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BillingCity", DbType="NVarChar(50)")]
+		public string BillingCity
+		{
+			get
+			{
+				return this._BillingCity;
+			}
+			set
+			{
+				if ((this._BillingCity != value))
+				{
+					this.OnBillingCityChanging(value);
+					this.SendPropertyChanging();
+					this._BillingCity = value;
+					this.SendPropertyChanged("BillingCity");
+					this.OnBillingCityChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BillingState", DbType="NVarChar(50)")]
+		public string BillingState
+		{
+			get
+			{
+				return this._BillingState;
+			}
+			set
+			{
+				if ((this._BillingState != value))
+				{
+					this.OnBillingStateChanging(value);
+					this.SendPropertyChanging();
+					this._BillingState = value;
+					this.SendPropertyChanged("BillingState");
+					this.OnBillingStateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BillingZip", DbType="NVarChar(15)")]
+		public string BillingZip
+		{
+			get
+			{
+				return this._BillingZip;
+			}
+			set
+			{
+				if ((this._BillingZip != value))
+				{
+					this.OnBillingZipChanging(value);
+					this.SendPropertyChanging();
+					this._BillingZip = value;
+					this.SendPropertyChanged("BillingZip");
+					this.OnBillingZipChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_BillingCountry", DbType="NVarChar(50)")]
+		public string BillingCountry
+		{
+			get
+			{
+				return this._BillingCountry;
+			}
+			set
+			{
+				if ((this._BillingCountry != value))
+				{
+					this.OnBillingCountryChanging(value);
+					this.SendPropertyChanging();
+					this._BillingCountry = value;
+					this.SendPropertyChanged("BillingCountry");
+					this.OnBillingCountryChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ShippingFirstname", DbType="NVarChar(100)")]
+		public string ShippingFirstname
+		{
+			get
+			{
+				return this._ShippingFirstname;
+			}
+			set
+			{
+				if ((this._ShippingFirstname != value))
+				{
+					this.OnShippingFirstnameChanging(value);
+					this.SendPropertyChanging();
+					this._ShippingFirstname = value;
+					this.SendPropertyChanged("ShippingFirstname");
+					this.OnShippingFirstnameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ShippingLastName", DbType="NVarChar(100)")]
+		public string ShippingLastName
+		{
+			get
+			{
+				return this._ShippingLastName;
+			}
+			set
+			{
+				if ((this._ShippingLastName != value))
+				{
+					this.OnShippingLastNameChanging(value);
+					this.SendPropertyChanging();
+					this._ShippingLastName = value;
+					this.SendPropertyChanged("ShippingLastName");
+					this.OnShippingLastNameChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ShippingAddress1", DbType="NVarChar(100)")]
+		public string ShippingAddress1
+		{
+			get
+			{
+				return this._ShippingAddress1;
+			}
+			set
+			{
+				if ((this._ShippingAddress1 != value))
+				{
+					this.OnShippingAddress1Changing(value);
+					this.SendPropertyChanging();
+					this._ShippingAddress1 = value;
+					this.SendPropertyChanged("ShippingAddress1");
+					this.OnShippingAddress1Changed();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ShippingAddress2", DbType="NVarChar(100)")]
+		public string ShippingAddress2
+		{
+			get
+			{
+				return this._ShippingAddress2;
+			}
+			set
+			{
+				if ((this._ShippingAddress2 != value))
+				{
+					this.OnShippingAddress2Changing(value);
+					this.SendPropertyChanging();
+					this._ShippingAddress2 = value;
+					this.SendPropertyChanged("ShippingAddress2");
+					this.OnShippingAddress2Changed();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ShippingCity", DbType="NVarChar(50)")]
+		public string ShippingCity
+		{
+			get
+			{
+				return this._ShippingCity;
+			}
+			set
+			{
+				if ((this._ShippingCity != value))
+				{
+					this.OnShippingCityChanging(value);
+					this.SendPropertyChanging();
+					this._ShippingCity = value;
+					this.SendPropertyChanged("ShippingCity");
+					this.OnShippingCityChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ShippingState", DbType="NVarChar(15)")]
+		public string ShippingState
+		{
+			get
+			{
+				return this._ShippingState;
+			}
+			set
+			{
+				if ((this._ShippingState != value))
+				{
+					this.OnShippingStateChanging(value);
+					this.SendPropertyChanging();
+					this._ShippingState = value;
+					this.SendPropertyChanged("ShippingState");
+					this.OnShippingStateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ShippingPostalCode", DbType="NVarChar(50)")]
+		public string ShippingPostalCode
+		{
+			get
+			{
+				return this._ShippingPostalCode;
+			}
+			set
+			{
+				if ((this._ShippingPostalCode != value))
+				{
+					this.OnShippingPostalCodeChanging(value);
+					this.SendPropertyChanging();
+					this._ShippingPostalCode = value;
+					this.SendPropertyChanged("ShippingPostalCode");
+					this.OnShippingPostalCodeChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ShippingCountry", DbType="NVarChar(50)")]
+		public string ShippingCountry
+		{
+			get
+			{
+				return this._ShippingCountry;
+			}
+			set
+			{
+				if ((this._ShippingCountry != value))
+				{
+					this.OnShippingCountryChanging(value);
+					this.SendPropertyChanging();
+					this._ShippingCountry = value;
+					this.SendPropertyChanged("ShippingCountry");
+					this.OnShippingCountryChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Phone", DbType="NVarChar(25)")]
+		public string Phone
+		{
+			get
+			{
+				return this._Phone;
+			}
+			set
+			{
+				if ((this._Phone != value))
+				{
+					this.OnPhoneChanging(value);
+					this.SendPropertyChanging();
+					this._Phone = value;
+					this.SendPropertyChanged("Phone");
+					this.OnPhoneChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Email", DbType="NVarChar(75)")]
+		public string Email
+		{
+			get
+			{
+				return this._Email;
+			}
+			set
+			{
+				if ((this._Email != value))
+				{
+					this.OnEmailChanging(value);
+					this.SendPropertyChanging();
+					this._Email = value;
+					this.SendPropertyChanged("Email");
+					this.OnEmailChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_AltContact", DbType="NVarChar(75)")]
+		public string AltContact
+		{
+			get
+			{
+				return this._AltContact;
+			}
+			set
+			{
+				if ((this._AltContact != value))
+				{
+					this.OnAltContactChanging(value);
+					this.SendPropertyChanging();
+					this._AltContact = value;
+					this.SendPropertyChanged("AltContact");
+					this.OnAltContactChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Customer_Order", Storage="_Orders", ThisKey="CustomerID", OtherKey="CustomerID")]
+		public EntitySet<Order> Orders
+		{
+			get
+			{
+				return this._Orders;
+			}
+			set
+			{
+				this._Orders.Assign(value);
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.AssociationAttribute(Name="Transaction_Customer", Storage="_Transaction", ThisKey="TransactionID", OtherKey="TransactionID", IsForeignKey=true)]
+		public Transaction Transaction
+		{
+			get
+			{
+				return this._Transaction.Entity;
+			}
+			set
+			{
+				Transaction previousValue = this._Transaction.Entity;
+				if (((previousValue != value) 
+							|| (this._Transaction.HasLoadedOrAssignedValue == false)))
+				{
+					this.SendPropertyChanging();
+					if ((previousValue != null))
+					{
+						this._Transaction.Entity = null;
+						previousValue.Customers.Remove(this);
+					}
+					this._Transaction.Entity = value;
+					if ((value != null))
+					{
+						value.Customers.Add(this);
+						this._TransactionID = value.TransactionID;
+					}
+					else
+					{
+						this._TransactionID = default(Nullable<int>);
+					}
+					this.SendPropertyChanged("Transaction");
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+		
+		private void attach_Orders(Order entity)
+		{
+			this.SendPropertyChanging();
+			entity.Customer = this;
+		}
+		
+		private void detach_Orders(Order entity)
+		{
+			this.SendPropertyChanging();
+			entity.Customer = null;
 		}
 	}
 }

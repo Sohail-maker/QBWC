@@ -150,8 +150,8 @@ namespace QuickbooksWebService.QuickbooksObjects
 		private string ShipState { get { return customer.ShippingState; } }
 		private string ShipPostalCode { get { return customer.ShippingPostalCode; } }
 		private string ShipCountry { get { return customer.ShippingCountry; } }//</ShipAddress>
-		//private string Phone { get { return customer.b_phone; } }
-		//private string Email { get { return customer.email; } }
+		//private string Phone { get { return customer.Phone; } }
+		//private string Email { get { return customer.Email; } }
 		private string firstname { get { return customer.BillingFirstName == String.Empty ? customer.ShippingFirstname : customer.BillingFirstName; } }
 		private string lastname { get { return customer.BillingLastName == String.Empty ? customer.ShippingLastName : customer.BillingLastName; } }
 		private string S_firstname { get { return customer.ShippingFirstname; } }

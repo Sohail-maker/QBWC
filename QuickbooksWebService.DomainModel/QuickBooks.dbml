@@ -35,32 +35,6 @@
       <Association Name="webpages_Role_webpages_UsersInRole" Member="webpages_Role" ThisKey="RoleId" OtherKey="RoleId" Type="webpages_Role" IsForeignKey="true" />
     </Type>
   </Table>
-  <Table Name="dbo.Customers" Member="Customers">
-    <Type Name="Customer">
-      <Column Name="CustomerID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
-      <Column Name="Shops_ShopperID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
-      <Column Name="Reported" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
-      <Column Name="TransactionID" Type="System.Int32" DbType="Int" CanBeNull="true" />
-      <Column Name="BillingFirstName" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
-      <Column Name="BillingLastName" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
-      <Column Name="BillingAddress1" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
-      <Column Name="BillingAddress2" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
-      <Column Name="BillingCity" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="BillingState" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="BillingZip" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
-      <Column Name="BillingCountry" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="ShippingFirstname" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
-      <Column Name="ShippingLastName" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
-      <Column Name="ShippingAddress1" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
-      <Column Name="ShippingAddress2" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
-      <Column Name="ShippingCity" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="ShippingState" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
-      <Column Name="ShippingPostalCode" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Column Name="ShippingCountry" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
-      <Association Name="Customer_Order" Member="Orders" ThisKey="CustomerID" OtherKey="CustomerID" Type="Order" />
-      <Association Name="Transaction_Customer" Member="Transaction" ThisKey="TransactionID" OtherKey="TransactionID" Type="Transaction" IsForeignKey="true" />
-    </Type>
-  </Table>
   <Table Name="dbo.FailedOrders" Member="FailedOrders">
     <Type Name="FailedOrder">
       <Column Name="FailedOrderID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
@@ -113,8 +87,8 @@
       <Column Name="ShippingDescription" Type="System.String" DbType="NVarChar(255)" CanBeNull="true" />
       <Association Name="Order_FailedOrder" Member="FailedOrders" ThisKey="OrderID" OtherKey="OrderID" Type="FailedOrder" />
       <Association Name="Order_OrderLineItem" Member="OrderLineItems" ThisKey="OrderID" OtherKey="OrderID" Type="OrderLineItem" />
-      <Association Name="Customer_Order" Member="Customer" ThisKey="CustomerID" OtherKey="CustomerID" Type="Customer" IsForeignKey="true" />
       <Association Name="Transaction_Order" Member="Transaction" ThisKey="TransactionID" OtherKey="TransactionID" Type="Transaction" IsForeignKey="true" />
+      <Association Name="Customer_Order" Member="Customer" ThisKey="CustomerID" OtherKey="CustomerID" Type="Customer" IsForeignKey="true" />
     </Type>
   </Table>
   <Table Name="dbo.QuickbooksInventory" Member="QuickbooksInventories">
@@ -173,8 +147,8 @@
       <Column Name="Date" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="ProcessedItemInventoryQuery" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
       <Column Name="ProcessedItemSalesTaxQueryRs" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
-      <Association Name="Transaction_Customer" Member="Customers" ThisKey="TransactionID" OtherKey="TransactionID" Type="Customer" />
       <Association Name="Transaction_Order" Member="Orders" ThisKey="TransactionID" OtherKey="TransactionID" Type="Order" />
+      <Association Name="Transaction_Customer" Member="Customers" ThisKey="TransactionID" OtherKey="TransactionID" Type="Customer" />
       <Association Name="Client_Transaction" Member="Client" ThisKey="ClientID" OtherKey="ContentEditsClientID" Type="Client" IsForeignKey="true" />
     </Type>
   </Table>
@@ -208,6 +182,35 @@
       <Column Name="RoleId" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
       <Column Name="RoleName" Type="System.String" DbType="NVarChar(256) NOT NULL" CanBeNull="false" />
       <Association Name="webpages_Role_webpages_UsersInRole" Member="webpages_UsersInRoles" ThisKey="RoleId" OtherKey="RoleId" Type="webpages_UsersInRole" />
+    </Type>
+  </Table>
+  <Table Name="dbo.Customers" Member="Customers">
+    <Type Name="Customer">
+      <Column Name="CustomerID" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="Shops_ShopperID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="Reported" Type="System.Boolean" DbType="Bit NOT NULL" CanBeNull="false" />
+      <Column Name="TransactionID" Type="System.Int32" DbType="Int" CanBeNull="true" />
+      <Column Name="BillingFirstName" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="BillingLastName" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="BillingAddress1" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="BillingAddress2" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="BillingCity" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="BillingState" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="BillingZip" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
+      <Column Name="BillingCountry" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ShippingFirstname" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="ShippingLastName" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="ShippingAddress1" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="ShippingAddress2" Type="System.String" DbType="NVarChar(100)" CanBeNull="true" />
+      <Column Name="ShippingCity" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ShippingState" Type="System.String" DbType="NVarChar(15)" CanBeNull="true" />
+      <Column Name="ShippingPostalCode" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="ShippingCountry" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Phone" Type="System.String" DbType="NVarChar(25)" CanBeNull="true" />
+      <Column Name="Email" Type="System.String" DbType="NVarChar(75)" CanBeNull="true" />
+      <Column Name="AltContact" Type="System.String" DbType="NVarChar(75)" CanBeNull="true" />
+      <Association Name="Customer_Order" Member="Orders" ThisKey="CustomerID" OtherKey="CustomerID" Type="Order" />
+      <Association Name="Transaction_Customer" Member="Transaction" ThisKey="TransactionID" OtherKey="TransactionID" Type="Transaction" IsForeignKey="true" />
     </Type>
   </Table>
 </Database>
