@@ -1,5 +1,14 @@
 ﻿<?xml version="1.0" encoding="utf-8"?><Database Name="ContentManager" Class="ContentManagerDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
-  <Connection Mode="AppSettings" ConnectionString="Data Source=10.8.0.200;Initial Catalog=ContentManager;Persist Security Info=True;User ID=workflow" SettingsObjectName="QuickbooksWebService.DomainModel.Properties.Settings" SettingsPropertyName="ContentManagerConnectionString" Provider="System.Data.SqlClient" />
+  <Connection Mode="AppSettings" ConnectionString="Data Source=10.8.0.200;Initial Catalog=ContentManager;Persist Security Info=True;User ID=workflow" SettingsObjectName="QuickbooksWebService.DomainModel.Properties.Settings" SettingsPropertyName="ContentManagerConnectionString1" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.shops_taxRules" Member="shops_taxRules">
+    <Type Name="shops_taxRule">
+      <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="shopID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="clientID" Type="System.Int32" DbType="Int NOT NULL" CanBeNull="false" />
+      <Column Name="state" Type="System.String" DbType="VarChar(2) NOT NULL" CanBeNull="false" />
+      <Column Name="rate" Type="System.Decimal" DbType="Decimal(18,3) NOT NULL" CanBeNull="false" />
+    </Type>
+  </Table>
   <Table Name="dbo.shops_inventory" Member="shops_inventories">
     <Type Name="shops_inventory">
       <Column Name="id" Type="System.Int32" DbType="Int NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />

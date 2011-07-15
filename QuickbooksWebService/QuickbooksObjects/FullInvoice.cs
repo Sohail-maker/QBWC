@@ -2,6 +2,7 @@
 using System.Linq;
 using System.Xml.Linq;
 using QuickbooksWebService.DomainModel;
+using System.Collections.Generic;
 
 namespace QuickbooksWebService.QuickbooksObjects
 {
@@ -26,19 +27,20 @@ namespace QuickbooksWebService.QuickbooksObjects
 			customer = rep.GetCustomer(customerID);
 			order =		rep.GetQuickBooksOrder(false, orderID);
 			requestID = order.RequestID;
-
+			List<KeyValuePair<int,string>> orderLineItem_itemNames = new List<KeyValuePair<int,string>>();
 			var lineItems = rep.GetOrderLineItems(orderID);
 			foreach (var item in lineItems)
 			{
 				var shopItem = rep.GetShopInventoryItems(order.ClientID).Where(i => i.Name == item.InventoryName).FirstOrDefault();
-				var exists = shopItem != null && shopItem.QuickbooksInventoryID != null;
+				var exists =  shopItem.QuickbooksInventoryID != null;
 				if (!exists)
 				{
 					var qbItem = rep.GetQuickbooksInventoryItem(item.InventoryName,order.ClientID);
-					if (qbItem != null)
+					if (qbItem != null && shopItem != null)
 					{
 						shopItem.QuickbooksInventoryID = qbItem.QuickbooksInventoryID;
 						rep.Save();
+						orderLineItem_itemNames.Add(new KeyValuePair<int, string>(item.LineItemID, qbItem.FullName));
 					}
 					else
 					{
@@ -47,7 +49,9 @@ namespace QuickbooksWebService.QuickbooksObjects
 					}
 				}
 				else
-					item.InventoryName = shopItem.QuickbooksInventory.FullName;
+					{
+						orderLineItem_itemNames.Add(new KeyValuePair<int,string>(item.LineItemID,shopItem.QuickbooksInventory.FullName));
+					}
 			}
 			if (itemsExist)
 			{
@@ -94,7 +98,7 @@ namespace QuickbooksWebService.QuickbooksObjects
 					(lastLineItemNode == null ? salesTaxNode : lastLineItemNode).AddAfterSelf(
 						new XElement("InvoiceLineAdd",
 							new XElement("ItemRef",
-								new XElement("FullName", item.InventoryName)),
+								new XElement("FullName", orderLineItem_itemNames.Where(o => o.Key == item.LineItemID).FirstOrDefault().Value)),//Mapped Value from Quickbooks Inventory//item.InventoryName)),
 							new XElement("Desc", item.FullDescription),
 							new XElement("Quantity", item == null ? 1 : item.Quantity),
 							new XElement("Rate", ((decimal)item.PriceEach).ToString("N2")),
@@ -102,6 +106,7 @@ namespace QuickbooksWebService.QuickbooksObjects
 						)
 					);
 				}
+				
 				if (ClassRef != null && ClassRef != String.Empty)
 				{
 					customerNode.AddAfterSelf(
@@ -133,6 +138,8 @@ namespace QuickbooksWebService.QuickbooksObjects
 			{
 				doc = Inventory.ItemQuery(requestID, missingInventoryItem);
 			}
+			order.RequestXML = doc.ToString();
+			rep.Save();
 			return doc;
 		}
 		private string Name { get { return String.Format("{0} {1} {2}", firstname, lastname, order.OrderNumber); } }
@@ -150,8 +157,6 @@ namespace QuickbooksWebService.QuickbooksObjects
 		private string ShipState { get { return customer.ShippingState; } }
 		private string ShipPostalCode { get { return customer.ShippingPostalCode; } }
 		private string ShipCountry { get { return customer.ShippingCountry; } }//</ShipAddress>
-		//private string Phone { get { return customer.Phone; } }
-		//private string Email { get { return customer.Email; } }
 		private string firstname { get { return customer.BillingFirstName == String.Empty ? customer.ShippingFirstname : customer.BillingFirstName; } }
 		private string lastname { get { return customer.BillingLastName == String.Empty ? customer.ShippingLastName : customer.BillingLastName; } }
 		private string S_firstname { get { return customer.ShippingFirstname; } }

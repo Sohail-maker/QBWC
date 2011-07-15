@@ -1,11 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 11, 8.5" name="ContentManager">
+<ordesignerObjectsDiagram dslVersion="1.0.0.0" absoluteBounds="0, 0, 15.25, 10.75" name="ContentManager">
   <DataContextMoniker Name="/ContentManagerDataContext" />
   <nestedChildShapes>
-    <classShape Id="927cf8dd-9b38-44e9-a81c-9931d1804642" absoluteBounds="8.125, 2.625, 2, 4.4631168619791666">
+    <classShape Id="77f232be-f6bd-4f50-8285-6f698c765a7f" absoluteBounds="6.75, 8.75, 2, 1.7708968098958344">
+      <DataClassMoniker Name="/ContentManagerDataContext/shops_taxRule" />
+      <nestedChildShapes>
+        <elementListCompartment Id="b3ea5e44-c277-4da1-9030-bd29d21d59b0" absoluteBounds="6.765, 9.21, 1.9700000000000002, 1.2108968098958333" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+      </nestedChildShapes>
+    </classShape>
+    <classShape Id="65d2e7a2-3764-421f-8dbc-e3e66a132997" absoluteBounds="13, 4.5, 2, 4.4631168619791666">
       <DataClassMoniker Name="/ContentManagerDataContext/shops_inventory" />
       <nestedChildShapes>
-        <elementListCompartment Id="7e6702b6-e14f-444a-a4dd-11ed0eb00432" absoluteBounds="8.14, 3.085, 1.9700000000000002, 3.903116861979167" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
+        <elementListCompartment Id="eff7da09-73a9-4ee6-b8c0-ba4a3db5937d" absoluteBounds="13.015, 4.96, 1.9700000000000002, 3.903116861979167" name="DataPropertiesCompartment" titleTextColor="Black" itemTextColor="Black" />
       </nestedChildShapes>
     </classShape>
   </nestedChildShapes>

@@ -19,7 +19,6 @@
 	client.InvoiceClassRef = Request["InvoiceClassRef"];
 	client.ShippingReference = Request["ShippingReference"];
 	client.RequiresInventoryUpdate = Request["RequiresInventoryUpdate"] == "on";
-	client.SalesTaxReference = Request["SalesTaxReference"];
 	rep.Save();
 	message = "<h3>Saved</h3>";
 }
@@ -44,10 +43,6 @@
 				<tr>
 					<td><label>Shipping Reference</label></td>
 					<td><input type="text" name="ShippingReference" value="@client.ShippingReference" /></td>
-				</tr>
-				<tr>
-					<td><label>Sales Tax Reference</label></td>
-					<td><input type="text" name="SalesTaxReference" value="@client.SalesTaxReference" /></td>
 				</tr>
 				<tr>
 					<td><label>Update Inventory Next Session</label></td>

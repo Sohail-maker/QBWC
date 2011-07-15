@@ -139,6 +139,8 @@ namespace QuickbooksWebService.DomainModel
 			return QbDb.Orders.Where(o => !o.Reported && o.ClientID == clientID);
 		}
 
+		//public Order GetO
+
 		public IEnumerable<Order> GetOrdersByTransaction(int transactionID)
 		{
 			return QbDb.Orders.Where(c => c.TransactionID == transactionID);

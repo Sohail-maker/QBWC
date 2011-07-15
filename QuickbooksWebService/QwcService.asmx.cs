@@ -89,6 +89,14 @@ namespace QwcService
 		#endregion
 
 		#region WebMethods
+		
+		[WebMethod]
+		public string Test(int orderID)
+		{
+			var order = rep.GetQuickBooksOrder(false,orderID);
+			var invoice = new FullInvoice();
+			return	invoice.GetInvoice(order.CustomerID, orderID).ToString();
+		}
 		[WebMethod]
 			/// <summary>
 			/// WebMethod# 1 - clientVersion()
@@ -486,6 +494,10 @@ namespace QwcService
 			}
 			else if(requiresInventoryUpdate)
 			{
+				if(user.Client.IsContentEditsShop ?? false)
+				{
+					UpdateShopInventory();
+				}
 				var doc =  Inventory.ItemNonInventoryFullQueryRq();
 				user.Client.RequiresInventoryUpdate = false;
 				rep.Save();
@@ -497,6 +509,13 @@ namespace QwcService
 				customer.Reported = true;
 				rep.Save();
 				return doc;
+			}
+			if (order.AmountDiscount != null && order.AmountDiscount > 0 )
+			{
+				Error.ProcessFailedOrder(order);
+				order.Reported = true;
+				rep.Save();
+				order = rep.GetUnprocessedOrdersByTransaction(ticket).FirstOrDefault();
 			}
 			else if ( order != null)
 			{
@@ -531,7 +550,7 @@ namespace QwcService
 		
 		private void GetCeInventory(webpages_Membership user)
 		{
-			var infomediainventory = rep.GetCeInventoryItems(1871);
+			var infomediainventory = rep.GetCeInventoryItems(user.Client.ContentEditsClientID);
 			var items = from inv in infomediainventory 
 				select new ShopInventory(){
 					ClientID = user.ClientID ?? 0,
@@ -539,7 +558,7 @@ namespace QwcService
 				};
 			foreach(var item in items)
 			{
-				if (rep.GetShopInventory(user.ClientID ?? 0,item.Name) != null)
+				if (rep.GetShopInventory(user.ClientID ?? 0,item.Name) == null)
 					rep.Add(item);
 			}
 			rep.Save();
