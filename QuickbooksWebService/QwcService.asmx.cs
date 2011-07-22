@@ -10,6 +10,7 @@ using QuickbooksWebService.DomainModel;
 using QuickbooksWebService.QuickbooksObjects;
 using QuickbooksWebService.ResponseProcess;
 using WebMatrix.Data;
+using QuickbooksWebService.WebsiteObjects;
 using WebMatrix.WebData;
 namespace QwcService
 {
@@ -535,34 +536,17 @@ namespace QwcService
 			var user = rep.GetUser(WebSecurity.CurrentUserId);
 			if(user.Client.IsContentEditsShop ?? false)
 			{
-				GetCeInventory(user);
+				WebShopInventory.GetCeInventory(user);
 			}
 			else
 			{
-				GetShopInventory();
+				WebShopInventory.GetShopInventory();
 			}
 		}
 
-		private void GetShopInventory()
-		{
-			throw new NotImplementedException();
-		}
 		
-		private void GetCeInventory(webpages_Membership user)
-		{
-			var infomediainventory = rep.GetCeInventoryItems(user.Client.ContentEditsClientID);
-			var items = from inv in infomediainventory 
-				select new ShopInventory(){
-					ClientID = user.ClientID ?? 0,
-					Name = inv.title
-				};
-			foreach(var item in items)
-			{
-				if (rep.GetShopInventory(user.ClientID ?? 0,item.Name) == null)
-					rep.Add(item);
-			}
-			rep.Save();
-		}
+		
+		
 
 		private string parseForVersion(string input){
 			// This method is created just to parse the first two version components

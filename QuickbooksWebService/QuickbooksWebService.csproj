@@ -110,6 +110,7 @@
       <DependentUpon>Reference.svcmap</DependentUpon>
     </Compile>
     <Compile Include="ResponseProcess\ProcessError.cs" />
+    <Compile Include="WebsiteObjects\WebShopInventory.cs" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Service References\" />

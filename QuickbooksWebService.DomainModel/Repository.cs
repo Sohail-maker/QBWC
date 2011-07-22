@@ -81,7 +81,7 @@ namespace QuickbooksWebService.DomainModel
 
 		public ShopInventory GetShopInventory(int clientid,string inventoryName)
 		{
-			return GetShopInventoryItems(clientid).Where(s => s.Name == inventoryName).SingleOrDefault();
+			return GetShopInventoryItems(clientid).Where(s => s.Name == inventoryName).FirstOrDefault();
 		}
 
 		public IEnumerable<ShopInventory> GetShopInventoryItems(int clientId)

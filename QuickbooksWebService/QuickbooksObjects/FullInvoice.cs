@@ -3,6 +3,7 @@ using System.Linq;
 using System.Xml.Linq;
 using QuickbooksWebService.DomainModel;
 using System.Collections.Generic;
+using QuickbooksWebService.WebsiteObjects;
 
 namespace QuickbooksWebService.QuickbooksObjects
 {
@@ -32,7 +33,15 @@ namespace QuickbooksWebService.QuickbooksObjects
 			foreach (var item in lineItems)
 			{
 				var shopItem = rep.GetShopInventoryItems(order.ClientID).Where(i => i.Name == item.InventoryName).FirstOrDefault();
-				var exists =  shopItem.QuickbooksInventoryID != null;
+				if (shopItem == null)
+				{
+					if (order.Client.IsContentEditsShop ?? false)
+					{
+						WebShopInventory.GetCeInventory(rep.GetUser(order.Client.webpages_Memberships.FirstOrDefault().UserID));
+						shopItem = rep.GetShopInventoryItems(order.ClientID).Where(i => i.Name == item.InventoryName).FirstOrDefault();
+					}
+				}
+				var exists =  shopItem != null && shopItem.QuickbooksInventoryID != null;
 				if (!exists)
 				{
 					var qbItem = rep.GetQuickbooksInventoryItem(item.InventoryName,order.ClientID);
@@ -49,9 +58,9 @@ namespace QuickbooksWebService.QuickbooksObjects
 					}
 				}
 				else
-					{
-						orderLineItem_itemNames.Add(new KeyValuePair<int,string>(item.LineItemID,shopItem.QuickbooksInventory.FullName));
-					}
+				{
+					orderLineItem_itemNames.Add(new KeyValuePair<int,string>(item.LineItemID,shopItem.QuickbooksInventory.FullName));
+				}
 			}
 			if (itemsExist)
 			{
