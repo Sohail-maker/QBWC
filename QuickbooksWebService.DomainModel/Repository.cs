@@ -71,6 +71,11 @@ namespace QuickbooksWebService.DomainModel
 			QbDb.ShopInventories.InsertAllOnSubmit(items);
 		}
 
+		public void Add(ResponseXML rsp)
+		{
+			QbDb.ResponseXMLs.InsertOnSubmit(rsp);
+		}
+
 		#endregion
 
 		#region Shop Inventory and CE Shop Inventory

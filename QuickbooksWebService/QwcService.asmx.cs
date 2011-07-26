@@ -310,6 +310,17 @@ namespace QwcService
 			/// Less than zero  = Custom Error codes
 			/// </summary>
 		public int receiveResponseXML(string ticket, string response, string hresult, string message) {
+			var user = rep.GetUser(WebSecurity.CurrentUserId);
+			rep.Add(new ResponseXML(){
+				Date = DateTime.Now,
+				Guid = ticket,
+				Hresult = hresult,
+				Message = message,
+				Response = response,
+				ClientID = user.ClientID ?? 0
+			});
+			rep.Save();
+
 			if(response.IndexOf("statusSeverity=\"Error\"")>0)
 			{
 				var doc = XDocument.Parse(response);

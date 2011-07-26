@@ -13,7 +13,8 @@ namespace QuickbooksWebService.DomainModel
 		void Add(Transaction transaction);
 		void Add(IEnumerable<QuickbooksInventory> items);
 		void Add(IEnumerable<ShopInventory> items);
-		
+		void Add(ResponseXML rsp);
+
 		IEnumerable<shops_inventory> GetCeInventoryItems(int clientid);
 
 		Client GetClient(int contentEditsClientID);

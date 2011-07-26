@@ -38,11 +38,7 @@ namespace QuickbooksWebService.DomainModel
     partial void Deleteshops_inventory(shops_inventory instance);
     #endregion
 		
-		public ContentManagerDataContext() : 
-				base(global::QuickbooksWebService.DomainModel.Properties.Settings.Default.ContentManagerConnectionString1, mappingSource)
-		{
-			OnCreated();
-		}
+		
 		
 		public ContentManagerDataContext(string connection) : 
 				base(connection, mappingSource)

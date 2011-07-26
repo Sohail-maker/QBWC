@@ -1,4 +1,3 @@
-C:\Git\QuickbooksWebService\QuickbooksWebService.DomainModel\bin\Debug\QuickbooksWebService.DomainModel.dll.config
 C:\Git\QuickbooksWebService\QuickbooksWebService.DomainModel\bin\Debug\QuickbooksWebService.DomainModel.dll
 C:\Git\QuickbooksWebService\QuickbooksWebService.DomainModel\bin\Debug\QuickbooksWebService.DomainModel.pdb
 C:\Git\QuickbooksWebService\QuickbooksWebService.DomainModel\obj\Debug\ResolveAssemblyReference.cache

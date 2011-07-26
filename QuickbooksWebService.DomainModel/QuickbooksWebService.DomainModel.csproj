@@ -65,7 +65,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="app.config" />
     <None Include="ContentManager.dbml">
       <Generator>MSLinqToSQLGenerator</Generator>
       <LastGenOutput>ContentManager1.designer.cs</LastGenOutput>
