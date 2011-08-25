@@ -1038,6 +1038,10 @@ namespace QuickbooksWebService.DomainModel
 		
 		private string _AltContact;
 		
+		private System.Nullable<bool> _CurrentRequest;
+		
+		private System.Nullable<int> _ClientID;
+		
 		private EntitySet<Order> _Orders;
 		
 		private EntityRef<Transaction> _Transaction;
@@ -1092,6 +1096,10 @@ namespace QuickbooksWebService.DomainModel
     partial void OnEmailChanged();
     partial void OnAltContactChanging(string value);
     partial void OnAltContactChanged();
+    partial void OnCurrentRequestChanging(System.Nullable<bool> value);
+    partial void OnCurrentRequestChanged();
+    partial void OnClientIDChanging(System.Nullable<int> value);
+    partial void OnClientIDChanged();
     #endregion
 		
 		public Customer()
@@ -1561,6 +1569,46 @@ namespace QuickbooksWebService.DomainModel
 					this._AltContact = value;
 					this.SendPropertyChanged("AltContact");
 					this.OnAltContactChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_CurrentRequest", DbType="Bit")]
+		public System.Nullable<bool> CurrentRequest
+		{
+			get
+			{
+				return this._CurrentRequest;
+			}
+			set
+			{
+				if ((this._CurrentRequest != value))
+				{
+					this.OnCurrentRequestChanging(value);
+					this.SendPropertyChanging();
+					this._CurrentRequest = value;
+					this.SendPropertyChanged("CurrentRequest");
+					this.OnCurrentRequestChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ClientID", DbType="Int")]
+		public System.Nullable<int> ClientID
+		{
+			get
+			{
+				return this._ClientID;
+			}
+			set
+			{
+				if ((this._ClientID != value))
+				{
+					this.OnClientIDChanging(value);
+					this.SendPropertyChanging();
+					this._ClientID = value;
+					this.SendPropertyChanged("ClientID");
+					this.OnClientIDChanged();
 				}
 			}
 		}

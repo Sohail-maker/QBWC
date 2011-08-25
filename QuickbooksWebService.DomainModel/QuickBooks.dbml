@@ -63,6 +63,8 @@
       <Column Name="Phone" Type="System.String" DbType="NVarChar(25)" CanBeNull="true" />
       <Column Name="Email" Type="System.String" DbType="NVarChar(75)" CanBeNull="true" />
       <Column Name="AltContact" Type="System.String" DbType="NVarChar(75)" CanBeNull="true" />
+      <Column Name="CurrentRequest" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="ClientID" Type="System.Int32" DbType="Int" CanBeNull="true" />
       <Association Name="Customer_Order" Member="Orders" ThisKey="CustomerID" OtherKey="CustomerID" Type="Order" />
       <Association Name="Transaction_Customer" Member="Transaction" ThisKey="TransactionID" OtherKey="TransactionID" Type="Transaction" IsForeignKey="true" />
     </Type>

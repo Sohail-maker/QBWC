@@ -321,15 +321,7 @@ namespace QwcService
 			});
 			rep.Save();
 
-			if(response.IndexOf("statusSeverity=\"Error\"")>0)
-			{
-				var doc = XDocument.Parse(response);
-				var itemRs = doc.Document.Root.Descendants("QBXMLMsgsRs").FirstOrDefault().Descendants().FirstOrDefault();
-				var msg = itemRs.Attribute("statusMessage").Value;
-				var requestID = Convert.ToInt32(itemRs.Attribute("requestID").Value);
-				Error.ProcessFailedOrder(requestID,msg);
-				throw new ApplicationException(msg);
-			}
+			
 			string responseType = "";
 			bool updatingInventory = false;
 			var trans = rep.GetTransaction(ticket);
@@ -347,6 +339,9 @@ namespace QwcService
 					responseType = doc.Document.Root.Descendants("QBXMLMsgsRs").FirstOrDefault().Descendants().FirstOrDefault().Name.LocalName;
 					switch(responseType)
 					{
+						case "CustomerAddRs":
+							ProcessAddRs.ProcessCustomerAdd(doc,ticket);
+							break;
 						case "ItemQueryRs":
 							ProcessQueryRs.InventoryQuery(response);
 							break;
@@ -518,6 +513,7 @@ namespace QwcService
 			else if(customer != null)
 			{
 				var doc = docMaker.GetCustomer(customer.CustomerID,customer.Orders.FirstOrDefault().OrderNumber);
+				customer.CurrentRequest = true;
 				customer.Reported = true;
 				rep.Save();
 				return doc;
@@ -542,6 +538,13 @@ namespace QwcService
 			return null;
 		}
 		
+		[WebMethod]
+		
+		public void TestCustomerResponse()
+		{
+			ProcessAddRs.ProcessCustomerAdd(XDocument.Parse("<?xml version=\"1.0\" ?> <QBXML> <QBXMLMsgsRs> <InvoiceAddRs requestID=\"1297\" statusCode=\"3070\" statusSeverity=\"Error\" statusMessage=\"The string &quot;Graham-Lees Hall 334, Washington and Lee University&quot; in the field &quot;Addr2&quot; is too long.\" /> </QBXMLMsgsRs> </QBXML> "),"0d4f37ec-96f8-425e-8534-c7733ed0c0e8");
+		}
+
 		private void UpdateShopInventory()
 		{
 			var user = rep.GetUser(WebSecurity.CurrentUserId);
